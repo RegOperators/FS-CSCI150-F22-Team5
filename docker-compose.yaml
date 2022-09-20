@@ -1,0 +1,31 @@
+services:
+  app:
+    build: ./app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
+  db:
+    image: mysql:8.0.30
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=myrootpassword123
+      - MYSQL_DATABASE=laravel
+      - MYSQL_USER=laravel
+      - MYSQL_PASSWORD=mypassword123
+  web-scraper:
+    build: ./web-scraper
+    volumes:
+      - ./web-scraper:/web-scraper
+  api:
+    build: ./api
+    ports:
+      - "8080:80"
+    volumes:
+      - ./api:/var/www/html
+volumes:
+  db_data:
