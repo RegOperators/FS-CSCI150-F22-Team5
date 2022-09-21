@@ -84,41 +84,27 @@ def get_valid_schedules():
                 print(classRoom)
                 print(classInstructor)
                 print(classMeetingDates)
-                sections.append({ 'days': re.findall('[A-Z][^A-Z]*', classDayTime.split()[0]), 'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(), 'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(), 'instructor': classInstructor })
+                sections.append({ 'days': re.findall('[A-Z][^A-Z]*', classDayTime.split()[0]), 'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(), 'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(), 'room': classRoom, 'instructor': classInstructor })
             classes.append({ 'name': className, 'sections': sections })
-    #schedules = []
-    #generateSchedules(schedules, classes, [], 0)
-    schedules = generateSchedules(classes, 0)
+    schedules = generate_schedules(classes, 0)
     return schedules
 
-"""def generateSchedules(schedules, classes, schedule, level):
-    if level >= len(classes):
-        if isValidSchedule(schedule):
-            schedules.append(schedule)
-        return
-    
-    for section in classes[level]['sections']:
-        newSchedule = schedule.copy()
-        newSchedule.append(section)
-        #print(classes[level]['name'] + ' - ' + section)
-        generateSchedules(schedules, classes, newSchedule, level + 1)"""
-
-def generateSchedules(classes, level):
+def generate_schedules(classes, level):
     if level >= len(classes):
         return [[]]
     
     schedules = []
     for section in classes[level]['sections']:
-        for schedule in generateSchedules(classes, level + 1):
+        for schedule in generate_schedules(classes, level + 1):
             schedule.append(section)
             if level == 0:
-                if isValidSchedule(schedule):
+                if is_valid_schedule(schedule):
                     schedules.append(schedule)
             else:
                 schedules.append(schedule)
     return schedules
 
-def isValidSchedule(schedule):
+def is_valid_schedule(schedule):
     for class1 in schedule:
         for class2 in schedule:
             if class1 == class2:

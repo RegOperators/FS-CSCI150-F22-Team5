@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import logo from './logo.svg';
 import './App.css';
 
@@ -21,7 +21,7 @@ function App() {
     setCourses(newCourses)
   }
 
-  const [data, setData] = useState(null)
+  const [schedules, setSchedules] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   
@@ -34,12 +34,12 @@ function App() {
       return response.json()
     })
     .then((data) => {
-      setData(data)
+      setSchedules(data)
       setError(null)
     })
     .catch((error) => {
       setError(error.message)
-      setData(null)
+      setSchedules(null)
     })
     .finally(() => setLoading(false))
   }

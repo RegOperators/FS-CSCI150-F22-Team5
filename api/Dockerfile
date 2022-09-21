@@ -1,8 +1,6 @@
-FROM php:8.1.10-apache
-RUN apt-get update
-RUN apt-get install -y zip
-RUN docker-php-ext-install pdo_mysql
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+FROM python:3.10.7
+WORKDIR /api
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD ["flask", "--app", "api", "run", "--host=0.0.0.0"]

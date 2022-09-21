@@ -17,15 +17,11 @@ services:
       - MYSQL_DATABASE=laravel
       - MYSQL_USER=laravel
       - MYSQL_PASSWORD=mypassword123
-  web-scraper:
-    build: ./web-scraper
-    volumes:
-      - ./web-scraper:/web-scraper
   api:
     build: ./api
     ports:
-      - "8080:80"
+      - "5000:5000"
     volumes:
-      - ./api:/var/www/html
+      - ./api:/api
 volumes:
   db_data:
