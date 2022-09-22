@@ -26,7 +26,7 @@ function App() {
   const [error, setError] = useState(null)
   
   const fetchSchedules = () => {
-    fetch('http://localhost:5000?' + new URLSearchParams(courses.map((course) => ['classes', course.courseId])).toString())
+    fetch('http://localhost:4000?' + new URLSearchParams(courses.map((course) => ['classes', course.courseId])).toString())
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
