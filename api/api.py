@@ -65,27 +65,40 @@ def get_valid_schedules():
             icStateNum += 1
             continue
         
-        for classTable in soup.find_all(id=lambda x: x and x.startswith('win0divSSR_CLSRSLT_WRK_GROUPBOX2$')):
-            classTableIndex = classTable.get('id')[33:]
-            className = classTable.find(id=f'win0divSSR_CLSRSLT_WRK_GROUPBOX2GP${classTableIndex}').text
-            print(className)
-            sections = []
-            for classRow in classTable.find_all(id=lambda x: x and x.startswith('win0divSSR_CLSRSLT_WRK_GROUPBOX3$')):
-                classRowIndex = classRow.get('id')[33:]
-                classNumber = classRow.find(id=f'MTG_CLASS_NBR${classRowIndex}').text
-                classSection = classRow.find(id=f'MTG_CLASSNAME${classRowIndex}').text
-                classDayTime = classRow.find(id=f'MTG_DAYTIME${classRowIndex}').text
-                classRoom = classRow.find(id=f'MTG_ROOM${classRowIndex}').text
-                classInstructor = classRow.find(id=f'MTG_INSTR${classRowIndex}').text
-                classMeetingDates = classRow.find(id=f'MTG_TOPIC${classRowIndex}').text
-                print(classNumber)
-                print(classSection)
-                print(classDayTime)
-                print(classRoom)
-                print(classInstructor)
-                print(classMeetingDates)
-                sections.append({ 'days': re.findall('[A-Z][^A-Z]*', classDayTime.split()[0]), 'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(), 'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(), 'room': classRoom, 'instructor': classInstructor })
-            classes.append({ 'name': className, 'sections': sections })
+        #classTable = soup.find(id='win0divSSR_CLSRSLT_WRK_GROUPBOX2$0')
+        #className = classTable.find(id='win0divSSR_CLSRSLT_WRK_GROUPBOX2GP$0').text
+        #print(className)
+        sectionGroups = {}
+        courseId = ''
+        #for index, classRow in enumerate(classTable.find_all(id=lambda x: x and x.startswith('win0divSSR_CLSRSLT_WRK_GROUPBOX3$'))):
+        for index, classRow in enumerate(soup.find_all(id=lambda x: x and x.startswith('win0divSSR_CLSRSLT_WRK_GROUPBOX3$'))):
+            classRowIndex = classRow.get('id')[33:]
+            classNumber = classRow.find(id=f'MTG_CLASS_NBR${classRowIndex}').text
+            classSection = classRow.find(id=f'MTG_CLASSNAME${classRowIndex}').text
+            classDayTime = classRow.find(id=f'MTG_DAYTIME${classRowIndex}').text
+            classRoom = classRow.find(id=f'MTG_ROOM${classRowIndex}').text
+            classInstructor = classRow.find(id=f'MTG_INSTR${classRowIndex}').text
+            classMeetingDates = classRow.find(id=f'MTG_TOPIC${classRowIndex}').text
+            if index == 0:
+                cookies = {
+                    'CFRPRD-PSJSESSIONID': sessionId,
+                }
+
+                data = {
+                    'ICStateNum': icStateNum + 1,
+                    'ICAction': f'MTG_CLASS_NBR${classRowIndex}',
+                }
+
+                response = requests.post('https://cmsweb.fresnostate.edu/psc/CFRPRD/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.CLASS_SEARCH.GBL', cookies=cookies, data=data)
+                soup = BeautifulSoup(response.text, 'html5lib')
+                courseId = soup.find(id='SSR_CLS_DTL_WRK_CRSE_ID').text
+            sectionTypeId = classSection.split('-')[1]
+            section = { 'id': classNumber, 'number': classSection.split('-')[0], 'type': sectionTypeId, 'days': re.findall('[A-Z][^A-Z]*', classDayTime.split()[0]), 'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(), 'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(), 'room': classRoom, 'instructor': classInstructor.splitlines()[0], 'courseId': courseId }
+            if sectionGroups.get(sectionTypeId) is None:
+                sectionGroups[sectionTypeId] = [section]
+            else:
+                sectionGroups.get(sectionTypeId).append(section)
+        classes.extend(sectionGroups.values())
     schedules = generate_schedules(classes, 0)
     return schedules
 
@@ -94,7 +107,7 @@ def generate_schedules(classes, level):
         return [[]]
     
     schedules = []
-    for section in classes[level]['sections']:
+    for section in classes[level]:
         for schedule in generate_schedules(classes, level + 1):
             schedule.append(section)
             if level == 0:
