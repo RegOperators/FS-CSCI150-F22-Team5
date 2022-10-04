@@ -4,9 +4,34 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import datetime
+import lxml
+import json
 
 app = Flask(__name__)
 CORS(app)
+
+
+# @app.route('/courses')
+def get_course_info():
+    # return JSON object
+    xml = requests.get('https://www.fresnostate.edu/catalog-xml/frcourses.xml').text
+    soup = BeautifulSoup(xml, 'xml')
+
+    catalogue = {}
+
+    courses = list()
+    for course in soup.find_all('COURSE'):
+        entry = {}
+        for contents in course.contents[1:-1]:
+            name = contents.name
+            text = contents.text
+            entry[name] = text
+            # print(f"{name}: {text}")
+        catalogue[entry["CRSE_ID"]] = entry
+
+    json_object = json.dumps(catalogue, indent=4, sort_keys=True)
+
+    return json_object
 
 @app.route('/')
 def get_valid_schedules():
