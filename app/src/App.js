@@ -57,14 +57,8 @@ function App() {
       <header className="px-6 py-4">
         <img src={logo} className="w-16 h-16" alt="logo" />
       </header>
-      <div className="py-40 container mx-auto px-6 hidden">
-        <h1 className="text-5xl sm:text-8xl font-extrabold mb-16">Create the perfect <span className="text-transparent bg-clip-text bg-gradient-to-br from-red-400 to-orange-400">class schedule</span> in a matter of seconds!</h1>
-        <p className="text-lg mb-16">All you have to do is specify the classes you'd like to take, along with some preferences, and we'll take care of the rest.</p>
-        {/*<button className="bg-gray-100 dark:bg-[#161b22] px-4 py-2.5 rounded-md" onClick={addCourse}>Add Course</button>*/}
-        {/*<button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md" onClick={fetchSchedules}>Generate Schedules</button>*/}
-      </div>
       <div>
-        <div className="container mx-auto px-6 py-24 grid grid-cols-1 sm:grid-cols-10">
+        <div className="container mx-auto px-6 py-24 grid grid-cols-1 sm:grid-cols-10 gap-16">
           <div className="col-span-3">
             <ol>
               {steps.map((step, index) => (
