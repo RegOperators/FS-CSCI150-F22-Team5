@@ -6,7 +6,7 @@ import BusyPeriodsStep from './components/BusyPeriodsStep'
 
 function App() {
   const [formData, setFormData] = useState({
-    courses: [{ courseId: '' }],
+    courses: [],
     busyPeriods: []
   })
 
