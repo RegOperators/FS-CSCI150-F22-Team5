@@ -22,7 +22,7 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <h1 className="text-4xl sm:text-7xl font-extrabold mb-8">Busy Periods</h1>
+      <h1 className="text-4xl sm:text-7xl font-extrabold mb-12">Busy Periods</h1>
       {formData.busyPeriods.length > 0 ? (
         <ul className="mb-6">
           {formData.busyPeriods.map((busyPeriod, index) => (
