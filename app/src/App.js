@@ -24,18 +24,21 @@ function App() {
   const [schedules, setSchedules] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  
+  var potentialScheduleRes //Data used in Front end manipulation of potential schedules
   const fetchSchedules = () => {
     fetch('http://localhost:4000/?' + new URLSearchParams(courses.map((course) => ['classes', course.courseId])).toString())
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
       }
+
       return response.json()
     })
     .then((data) => {
       setSchedules(data)
       setError(null)
+      potentialScheduleRes = data
+      tableResults()
     })
     .catch((error) => {
       setError(error.message)
@@ -43,7 +46,96 @@ function App() {
     })
     .finally(() => setLoading(false))
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const tableResults = () => {
+    var res = ""
+    for(let i = 0; i < potentialScheduleRes.length; i++){
+      res += "<br/><br/><table> <tr><td></td><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>" + scheduleRow(potentialScheduleRes[i]) + "</table>"
+    }
+    document.getElementById("resultTables").innerHTML = res
+  }
+
+  const scheduleRow = (classes) => {
+    var x = classes
+    x.sort(compareFn)
+    console.log(x)
+    var res1 = ""
+    for(let i = 0; i < x.length; i++){
+      res1 += "<tr><td></td>"
+      if(x[i].days.includes("Mo")){
+        res1 += "<td>" + x[i].courseName + " " + x[i].type +"<br/>" + x[i].id
+        res1 += "<br/> Time: " + getTime(x[i].startTime) + " - " + getTime(x[i].endTime)
+        res1 += "<br/> Instructor: " + x[i].instructor
+        res1 += "</td>"
+      }else {res1 += "<td></td>"}
+
+      if(x[i].days.includes("Tu")){
+        res1 += "<td>" + x[i].courseName + " " + x[i].type +"<br/>" + x[i].id
+        res1 += "<br/> Time: " + getTime(x[i].startTime) + " - " + getTime(x[i].endTime)
+        res1 += "<br/> Instructor: " + x[i].instructor
+        res1 += "</td>"
+      }else {res1 += "<td></td>"}
+
+      if(x[i].days.includes("We")){
+        res1 += "<td>" + x[i].courseName + " " + x[i].type +"<br/>" + x[i].id
+        res1 += "<br/> Time: " + getTime(x[i].startTime) + " - " + getTime(x[i].endTime)
+        res1 += "<br/> Instructor: " + x[i].instructor
+        res1 += "</td>"
+      }else {res1 += "<td></td>"}
+
+      if(x[i].days.includes("Th")){
+        res1 += "<td>" + x[i].courseName + " " + x[i].type +"<br/>" + x[i].id
+        res1 += "<br/> Time: " + getTime(x[i].startTime) + " - " + getTime(x[i].endTime)
+        res1 += "<br/> Instructor: " + x[i].instructor
+        res1 += "</td>"
+      }else {res1 += "<td></td>"}
+
+      if(x[i].days.includes("Fr")){
+        res1 += "<td>" + x[i].courseName + " " + x[i].type +"<br/>" + x[i].id
+        res1 += "<br/> Time: " + getTime(x[i].startTime) + " - " + getTime(x[i].endTime)
+        res1 += "<br/> Instructor: " + x[i].instructor
+        res1 += "</td>"
+      }else {res1 += "<td></td>"}
+
+      res1 += "<tr>"
+    }
+
+    return res1
+
+  }
+
+  const getTime = (timeGiven) => {
+    let myArray = timeGiven.split(':');
+
+    let x = parseFloat(myArray[0]);
+    if(x > 12)
+      x = x % 12
+    
+    return (x.toString() + ":" + myArray[1])
+  }
+
+  const compareFn = (firstItem, secondItem) => {
+    const myArray = firstItem.startTime.split(':')
+    myArray[1] = "0." + myArray[1]
+    var a = parseFloat(myArray[0]) + parseFloat(myArray[1])
+     
+    const myArray1 = secondItem.startTime.split(':')
+    myArray1[1] = "0." + myArray1[1]
+    var b = parseFloat(myArray1[0]) + parseFloat(myArray1[1])
+
+    if(a < b)
+      return -1
+    else if(a > b)
+      return 1
+    else 
+      return 0
+  }
+
   
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <div className="dark:bg-gray-900 dark:text-white">
       <header className="px-6 py-4">
@@ -61,19 +153,9 @@ function App() {
         <button className="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded" onClick={addCourse}>Add Course</button>
         <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2 rounded" onClick={fetchSchedules}>Generate Schedules</button>
       </div>
-      <table>
-        <tr>
-          <td></td>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-        </tr>
-        <tr>
-          <th>8:00AM</th>
-        </tr>
-      </table>
+      <div id="resultTables">
+
+      </div>
     </div>
   );
 }
