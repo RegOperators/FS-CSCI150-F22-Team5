@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Modal from './Modal'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const CoursesStep = ({ formData, setFormData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -42,7 +43,7 @@ const CoursesStep = ({ formData, setFormData }) => {
   return (
     <div>
       <div className="flex justify-between items-center mb-12">
-        <h1 className="text-4xl sm:text-7xl font-extrabold">Courses</h1>
+        <h1 className="text-4xl xl:text-6xl 2xl:text-7xl font-extrabold">Courses</h1>
         <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md flex" onClick={() => setIsModalOpen(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -52,15 +53,17 @@ const CoursesStep = ({ formData, setFormData }) => {
       </div>
       {formData.courses.length > 0 ? (
         <ul>
-          {formData.courses.map((course, index) => (
-            <li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
-              <div>
-                <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
-                <div>{course.CRSE_TITLE}</div>
-              </div>
-              <button onClick={() => removeCourse(index)}>Remove</button>
-            </li>
-          ))}
+          <AnimatePresence initial={false}>
+            {formData.courses.map((course, index) => (
+              <motion.li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={course.CRSE_ID} layout initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
+                <div>
+                  <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
+                  <div>{course.CRSE_TITLE}</div>
+                </div>
+                <button onClick={() => removeCourse(index)}>Remove</button>
+              </motion.li>
+            ))}
+          </AnimatePresence>
         </ul>
       ) : (
         <div>No courses have been selected.</div>
