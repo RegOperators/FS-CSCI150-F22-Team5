@@ -24,6 +24,10 @@ const SchedulesStep = ({ formData, setFormData }) => {
     .finally(() => setLoading(false))
   }, [])
 
+  const calculateColor = (index) => {
+    return `hsl(${137.5 * index}, 100%, 75%)`
+  }
+  
   const groupSectionsByDay = (sections) => {
     const groups = new Map()
     for (const dayId of ['Mo', 'Tu', 'We', 'Th', 'Fr']) {
@@ -67,7 +71,7 @@ const SchedulesStep = ({ formData, setFormData }) => {
               {Array.from(groupSectionsByDay(schedule)).map(([key, value], sectionGroupIndex) => (
                 <Fragment key={sectionGroupIndex}>
                   {value.map((section, index) => (
-                    <div className="bg-blue-500 p-1 rounded-md text-center relative m-0.5" style={{ gridArea: `${(parseInt(section.startTime.split(':')[0]) - startTime) + 2} / ${sectionGroupIndex + 2} / ${(parseInt(section.endTime.split(':')[0]) - startTime) + 3} / ${sectionGroupIndex + 3}`, top: `${(((parseInt(section.startTime.split(':')[0]) + (parseInt(section.startTime.split(':')[1]) / 60)) - parseInt(section.startTime.split(':')[0])) / ((parseInt(section.endTime.split(':')[0]) + 1) - parseInt(section.startTime.split(':')[0]))) * 100}%`, height: `${(((parseInt(section.endTime.split(':')[0]) + (parseInt(section.endTime.split(':')[1]) / 60)) - (parseInt(section.startTime.split(':')[0]) + (parseInt(section.startTime.split(':')[1]) / 60))) / ((parseInt(section.endTime.split(':')[0]) + 1) - parseInt(section.startTime.split(':')[0]))) * 100}%` }} key={index}>
+                    <div className="text-black p-1 rounded-md text-center relative m-0.5" style={{ backgroundColor: calculateColor(formData.courses.findIndex((course) => course.CRSE_ID === section.courseId)), gridArea: `${(parseInt(section.startTime.split(':')[0]) - startTime) + 2} / ${sectionGroupIndex + 2} / ${(parseInt(section.endTime.split(':')[0]) - startTime) + 3} / ${sectionGroupIndex + 3}`, top: `${(((parseInt(section.startTime.split(':')[0]) + (parseInt(section.startTime.split(':')[1]) / 60)) - parseInt(section.startTime.split(':')[0])) / ((parseInt(section.endTime.split(':')[0]) + 1) - parseInt(section.startTime.split(':')[0]))) * 100}%`, height: `${(((parseInt(section.endTime.split(':')[0]) + (parseInt(section.endTime.split(':')[1]) / 60)) - (parseInt(section.startTime.split(':')[0]) + (parseInt(section.startTime.split(':')[1]) / 60))) / ((parseInt(section.endTime.split(':')[0]) + 1) - parseInt(section.startTime.split(':')[0]))) * 100}%` }} key={index}>
                       <div className="text-sm font-semibold">{section.courseName}</div>
                       <div className="text-xs">{militaryToRegularTime(section.startTime)} - {militaryToRegularTime(section.endTime)}</div>
                       <div className="text-xs">{section.room}</div>
