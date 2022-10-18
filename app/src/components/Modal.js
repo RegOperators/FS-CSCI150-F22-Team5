@@ -4,7 +4,7 @@ const Modal = ({ isOpen, setIsOpen, children }) => {
   }
   
   return (
-    <div className="relative z-10">
+    <div className="relative z-20">
       <div className="fixed inset-0 bg-black opacity-75" onClick={() => setIsOpen(false)}></div>
       {children}
     </div>

@@ -54,15 +54,16 @@ const SchedulesStep = ({ formData, setFormData }) => {
       {schedules.length > 0 ? (
         <ul>
           {schedules.map((schedule, index) => (
-            <li className="grid grid-cols-[auto_repeat(5,_1fr)] mb-4 last:mb-0" style={{ gridTemplateRows: `auto repeat(${endTime - startTime}, 1fr)` }} key={index}>
-              <div className="text-center pb-4" style={{ gridArea: '1 / 2 / 2 / 3' }}>Monday</div>
-              <div className="text-center pb-4" style={{ gridArea: '1 / 3 / 2 / 4' }}>Tuesday</div>
-              <div className="text-center pb-4" style={{ gridArea: '1 / 4 / 2 / 5' }}>Wednesday</div>
-              <div className="text-center pb-4" style={{ gridArea: '1 / 5 / 2 / 6' }}>Thursday</div>
-              <div className="text-center pb-4" style={{ gridArea: '1 / 6 / 2 / 7' }}>Friday</div>
+            <li className="grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto mb-4 last:mb-0" style={{ gridTemplateRows: `auto repeat(${endTime - startTime}, 1fr)` }} key={index}>
+              <div className="bg-white dark:bg-[#0d1117] sticky left-0 z-10" style={{ gridArea: '1 / 1 / 2 / 2' }}></div>
+              <div className="text-center pb-4" style={{ gridArea: '1 / 2 / 2 / 3' }}>Mo</div>
+              <div className="text-center pb-4" style={{ gridArea: '1 / 3 / 2 / 4' }}>Tu</div>
+              <div className="text-center pb-4" style={{ gridArea: '1 / 4 / 2 / 5' }}>We</div>
+              <div className="text-center pb-4" style={{ gridArea: '1 / 5 / 2 / 6' }}>Th</div>
+              <div className="text-center pb-4" style={{ gridArea: '1 / 6 / 2 / 7' }}>Fr</div>
               {Array.from({ length: endTime - startTime }, (v, i) => militaryToRegularTime(`${(startTime + i).toString().padStart(2, '0')}:00`)).map((time, index) => (
-                <div className="h-32 pr-4" style={{ gridArea: `${index + 2} / 1 / ${index + 3} / 2` }} key={index}>
-                  <div className="-translate-y-1/2">{time}</div>
+                <div className="bg-white dark:bg-[#0d1117] sticky left-0 z-10 min-h-[8rem] pr-4" style={{ gridArea: `${index + 2} / 1 / ${index + 3} / 2` }} key={index}>
+                  <div className="text-xs -translate-y-1/2">{time}</div>
                 </div>
               ))}
               {Array.from({ length: 5 * (endTime - startTime) }, (v, i) => (

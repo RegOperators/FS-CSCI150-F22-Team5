@@ -78,7 +78,7 @@ const CoursesStep = ({ formData, setFormData }) => {
               </svg>
               <input className="bg-gray-100 dark:bg-[#161b22] pl-14 pr-4 py-2.5 rounded-md w-full" onChange={(event) => setFilterString(event.target.value)} />
             </div>
-            <div className="flex-1 overflow-y-scroll">
+            <div className="flex-1 overflow-y-auto">
               <ul>
                 {Object.values(courses).filter((course) => course.CRSE_TITLE.toLowerCase().includes(filterString.toLowerCase())).map((course, index) => (
                   <li className="bg-gray-100 dark:bg-[#161b22] p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>

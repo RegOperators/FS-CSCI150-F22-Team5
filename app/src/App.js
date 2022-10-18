@@ -94,7 +94,7 @@ function App() {
             <motion.div className="sm:col-span-7" key={currentStepIndex} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>{steps[currentStepIndex].component}</motion.div>
           </AnimatePresence>
         </div>
-        <div className="fixed bottom-0 w-full bg-white dark:bg-[#0d1117] py-6">
+        <div className="fixed bottom-0 w-full z-10 bg-white dark:bg-[#0d1117] py-6">
           <div className="container mx-auto px-6 sm:px-12 flex justify-end">
             <button className="bg-gray-100 dark:bg-[#161b22] px-4 py-2.5 rounded-md w-full sm:w-auto mr-4" onClick={goBack}>Back</button>
             <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={goForward}>Continue</button>
