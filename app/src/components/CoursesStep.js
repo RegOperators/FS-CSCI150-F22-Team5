@@ -44,9 +44,10 @@ const CoursesStep = ({ formData, setFormData }) => {
     <div>
       <div className="flex justify-between items-center mb-12">
         <h1 className="text-4xl xl:text-6xl 2xl:text-7xl font-extrabold">Courses</h1>
-        <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md flex" onClick={() => setIsModalOpen(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md flex items-center" onClick={() => setIsModalOpen(true)}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512">
+            <title>Add</title>
+            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M256 112v288M400 256H112"/>
           </svg>
           Add
         </button>
@@ -71,17 +72,18 @@ const CoursesStep = ({ formData, setFormData }) => {
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none">
           <div className="bg-white dark:bg-[#0d1117] p-8 rounded-md w-1/2 h-2/3 flex flex-col pointer-events-auto">
-            <h1 className="text-xl font-semibold mb-8">Add Course</h1>
+            <h1 className="text-xl font-semibold mb-8">Add Courses</h1>
             <div className="relative mb-8">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 absolute top-2.5 left-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 absolute top-2.5 left-4" fill="currentColor" viewBox="0 0 512 512">
+                <title>Search</title>
+                <path d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0034.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 00327.3 362.6l94.09 94.09a25 25 0 0035.3-35.3zM97.92 222.72a124.8 124.8 0 11124.8 124.8 124.95 124.95 0 01-124.8-124.8z"/>
               </svg>
-              <input className="bg-gray-100 dark:bg-[#161b22] pl-14 pr-4 py-2.5 rounded-md w-full" onChange={(event) => setFilterString(event.target.value)} />
+              <input className="bg-gray-100 dark:bg-[#161b22] pl-14 pr-4 py-2.5 rounded-md w-full" value={filterString} onChange={(event) => setFilterString(event.target.value)} />
             </div>
             <div className="flex-1 overflow-y-auto">
               <ul>
-                {Object.values(courses).filter((course) => course.CRSE_TITLE.toLowerCase().includes(filterString.toLowerCase())).map((course, index) => (
-                  <li className="bg-gray-100 dark:bg-[#161b22] p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
+                {Object.values(courses).filter((course) => `${course.SUBJECT_ID} ${course.CATALOG_NBR}`.toLowerCase().includes(filterString.toLowerCase()) || course.CRSE_TITLE.toLowerCase().includes(filterString.toLowerCase())).map((course, index) => (
+                  <li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
                     <div>
                       <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
                       <div>{course.CRSE_TITLE}</div>
