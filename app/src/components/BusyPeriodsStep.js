@@ -24,14 +24,15 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <div className="flex justify-between items-center mb-12">
-        <h1 className="text-4xl xl:text-6xl 2xl:text-7xl font-extrabold">Busy Periods</h1>
-        <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md flex items-center" onClick={() => setIsModalOpen(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512">
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 2 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">Are you unavailable at any point during the week?</h1>
+      <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
+        <h2 className="text-lg font-semibold">Busy Periods</h2>
+        <button onClick={() => setIsModalOpen(true)}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
             <title>Add</title>
             <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M256 112v288M400 256H112"/>
           </svg>
-          Add
         </button>
       </div>
       {formData.busyPeriods.length > 0 ? (

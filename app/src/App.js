@@ -85,11 +85,11 @@ function App() {
         <button onClick={switchTheme}>{options[optionIndex].component}</button>
       </header>
       <div>
-        <div className="container mx-auto px-6 sm:px-12 py-16 sm:py-32 grid grid-cols-1 sm:grid-cols-10 gap-16">
-          <div className="sm:col-span-3 sm:sticky sm:top-32 sm:h-min">
-            <ol className="flex sm:flex-col overflow-x-auto">
+        <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 grid grid-cols-1 sm:grid-cols-10 gap-16">
+          <div className="hidden sm:block col-span-3 sticky top-32 h-min">
+            <ol>
               {steps.map((step, index) => (
-                <li className="flex items-center shrink-0 mr-4 last:mr-0 sm:mr-0 sm:mb-16 sm:last:mb-0" onClick={() => setCurrentStepIndex(index)} key={index}><div className="bg-gray-100 dark:bg-[#161b22] w-8 h-8 rounded-md flex justify-center items-center mr-4">{index + 1}</div>{step.name}</li>
+                <li className="flex items-center mb-16 last:mb-0" onClick={() => setCurrentStepIndex(index)} key={index}><div className="bg-gray-100 dark:bg-[#161b22] w-8 h-8 rounded-md flex justify-center items-center mr-4">{index + 1}</div>{step.name}</li>
               ))}
             </ol>
           </div>
