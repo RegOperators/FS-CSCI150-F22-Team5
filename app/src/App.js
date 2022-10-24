@@ -85,7 +85,7 @@ function App() {
         <button onClick={switchTheme}>{options[optionIndex].component}</button>
       </header>
       <div>
-        <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 grid grid-cols-1 sm:grid-cols-10 gap-16">
+        <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 2xl:py-56 grid grid-cols-1 sm:grid-cols-10 gap-16">
           <div className="hidden sm:block col-span-3 sticky top-32 h-min">
             <ol>
               {steps.map((step, index) => (

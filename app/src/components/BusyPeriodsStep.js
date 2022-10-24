@@ -52,8 +52,16 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
       )}
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none">
-          <div className="bg-white dark:bg-[#0d1117] p-8 rounded-md w-1/2 h-2/3 flex flex-col pointer-events-auto">
-            <h1 className="text-xl font-semibold mb-8">Add a Busy Period</h1>
+          <div className="bg-white dark:bg-[#0d1117] p-6 sm:p-8 sm:rounded-md w-full sm:w-1/2 h-full sm:h-2/3 flex flex-col pointer-events-auto">
+            <div className="flex justify-between items-center mb-8">
+              <h1 className="text-xl font-semibold">Add a Busy Period</h1>
+              <button onClick={() => setIsModalOpen(false)}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
+                  <title>Close</title>
+                  <path d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z"/>
+                </svg>
+              </button>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-10 gap-4 mb-4 last:mb-0">
               <div className="sm:col-span-4">
                 <label className="block mb-2">Name</label>
@@ -76,7 +84,9 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
                   </div>
                 </div>
               </div>
-              <button onClick={addNewBusyPeriod}>Add</button>
+            </div>
+            <div className="flex justify-end">
+              <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={addNewBusyPeriod}>Add</button>
             </div>
           </div>
         </div>
