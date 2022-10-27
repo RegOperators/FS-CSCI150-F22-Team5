@@ -85,11 +85,11 @@ function App() {
         <button onClick={switchTheme}>{options[optionIndex].component}</button>
       </header>
       <div>
-        <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 2xl:py-56 grid grid-cols-1 sm:grid-cols-10 gap-16">
+        <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 2xl:py-48 grid grid-cols-1 sm:grid-cols-10 gap-16">
           <div className="hidden sm:block col-span-3 sticky top-32 h-min">
             <ol>
               {steps.map((step, index) => (
-                <li className="flex items-center mb-16 last:mb-0" onClick={() => setCurrentStepIndex(index)} key={index}><div className="bg-gray-100 dark:bg-[#161b22] w-8 h-8 rounded-md flex justify-center items-center mr-4">{index + 1}</div>{step.name}</li>
+                <li className={`flex items-center mb-16 last:mb-0 ${index !== currentStepIndex ? 'text-gray-500 dark:text-gray-400' : ''}`} onClick={() => setCurrentStepIndex(index)} key={index}><div className="bg-gray-100 dark:bg-[#161b22] w-8 h-8 rounded-md flex justify-center items-center mr-4">{index + 1}</div>{step.name}</li>
               ))}
             </ol>
           </div>
@@ -99,8 +99,8 @@ function App() {
         </div>
         <div className="fixed bottom-0 w-full z-10 bg-white dark:bg-[#0d1117] py-6">
           <div className="container mx-auto px-6 sm:px-12 flex justify-end">
-            <button className="bg-gray-100 dark:bg-[#161b22] px-4 py-2.5 rounded-md w-full sm:w-auto mr-4" onClick={goBack}>Back</button>
-            <button className="bg-gradient-to-br from-red-400 to-orange-400 px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={goForward}>Continue</button>
+            <button className="bg-gray-100 dark:bg-[#161b22] font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto mr-4" onClick={goBack}>Back</button>
+            <button className="bg-indigo-500 text-white font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={goForward}>Continue</button>
           </div>
         </div>
       </div>
