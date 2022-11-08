@@ -40,6 +40,42 @@ def get_course_info():  # convert course info xml to json obj indexed by courseI
     # Return final json
     return json_object
 
+@app.route("/terms")
+def get_terms():  # get course terms
+    # Get course search page html
+    response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    userid = soup.find('input', {'name': 'userid'}).get('value')
+    pwd = soup.find('input', {'name': 'pwd'}).get('value')
+    cmd = soup.find('input', {'name': 'cmd'}).get('value')
+    languageCd = soup.find('input', {'name': 'languageCd'}).get('value')
+    fr_guest_token = soup.find('input', {'name': 'fr_guest_token'}).get('value')
+    session = requests.Session()
+    data = {
+        'userid': userid,
+        'pwd': pwd,
+        'cmd': cmd,
+        'languageCd': languageCd,
+        'fr_guest_token': fr_guest_token,
+    }
+    response = session.post(
+        'https://cmsweb.fresnostate.edu/psc/CFRPRD/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.CLASS_SEARCH.GBL', data=data)
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # create empty list to hold terms
+    terms = []
+
+    options = soup.find("select", {"id": "CLASS_SRCH_WRK2_STRM$35$"})  # find tag with term options
+    children = options.findChildren()  # create list of children (options with terms)
+
+    # Step through each option, skipping the first (since it's empty)
+    for child in children[1:]:
+        id = child['value']  # save term id
+        name = child.contents[0]  # save term name
+        terms.append({'id': id, 'name': name})  #
+
+    return terms
 
 @app.route('/')
 def get_valid_schedules():
