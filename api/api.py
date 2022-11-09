@@ -4,7 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import datetime
-import lxml
 import json
 
 app = Flask(__name__)
