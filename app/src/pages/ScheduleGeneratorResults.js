@@ -11,7 +11,16 @@ const ScheduleGeneratorResults = () => {
   const [error, setError] = useState(null)
   
   useEffect(() => {
-    fetch('http://localhost:4000?' + new URLSearchParams(formData.courses.map((course) => ['classes', `${course.SUBJECT_ID} ${course.CATALOG_NBR}`])).toString())
+    fetch('http://localhost:4000', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        term: formData.term,
+        courses: formData.courses.map((course) => `${course.SUBJECT_ID} ${course.CATALOG_NBR}`)
+      })
+    })
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
