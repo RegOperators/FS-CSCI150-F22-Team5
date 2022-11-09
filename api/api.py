@@ -76,7 +76,7 @@ def get_terms():  # get course terms
 
     return terms
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def get_valid_schedules():
     response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
     soup = BeautifulSoup(response.text, 'html5lib')
@@ -98,7 +98,7 @@ def get_valid_schedules():
     sessionId = session.cookies['CFRPRD-PSJSESSIONID']
     icStateNum = 1
     classes = []
-    for className in request.args.getlist('classes'):
+    for courseName in request.json['courses']:
         cookies = {
             'CFRPRD-PSJSESSIONID': sessionId,
         }
@@ -106,10 +106,10 @@ def get_valid_schedules():
         data = {
             'ICStateNum': icStateNum,
             'ICAction': 'CLASS_SRCH_WRK2_SSR_PB_CLASS_SRCH',
-            # 'CLASS_SRCH_WRK2_STRM$35$': '2227',
-            'SSR_CLSRCH_WRK_SUBJECT$0': className.split()[0],
+            'CLASS_SRCH_WRK2_STRM$35$': request.json['term'],
+            'SSR_CLSRCH_WRK_SUBJECT$0': courseName.split()[0],
             'SSR_CLSRCH_WRK_SSR_EXACT_MATCH1$1': 'E',
-            'SSR_CLSRCH_WRK_CATALOG_NBR$1': className.split()[1],
+            'SSR_CLSRCH_WRK_CATALOG_NBR$1': courseName.split()[1],
             # 'SSR_CLSRCH_WRK_SSR_OPEN_ONLY$chk$4': 'N',
         }
 
@@ -174,7 +174,7 @@ def get_valid_schedules():
                        'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(),
                        'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(),
                        'room': classRoom, 'instructor': classInstructor.splitlines()[0], 'courseId': courseId,
-                       'courseName': className}
+                       'courseName': courseName}
             if sectionGroups.get(sectionTypeId) is None:
                 sectionGroups[sectionTypeId] = [section]
             else:
