@@ -42,9 +42,14 @@ function ScheduleGenerator() {
     <div>
       <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 2xl:py-48 grid grid-cols-1 sm:grid-cols-10 gap-16">
         <div className="hidden sm:block col-span-3 sticky top-32 h-min">
-          <ol>
+          <ol className="border-l border-gray-200 dark:border-[#30363d]">
             {steps.map((step, index) => (
-              <li className={`flex items-center mb-16 last:mb-0 ${index !== currentStepIndex ? 'text-gray-500 dark:text-gray-400' : ''}`} onClick={() => setCurrentStepIndex(index)} key={index}><div className="bg-gray-100 dark:bg-[#161b22] w-8 h-8 rounded-md flex justify-center items-center mr-4">{index + 1}</div>{step.name}</li>
+              <li className={`px-8 py-1 mb-8 last:mb-0 relative ${index === currentStepIndex ? 'text-indigo-500 font-semibold' : 'text-gray-500 dark:text-gray-400'}`} onClick={() => setCurrentStepIndex(index)} key={index}>
+                {index === currentStepIndex && (
+                  <motion.div className="w-[3px] h-full bg-current rounded-md absolute -left-0.5 top-0" layoutId="stepMarker"></motion.div>
+                )}
+                {step.name}
+              </li>
             ))}
           </ol>
         </div>

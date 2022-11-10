@@ -66,7 +66,7 @@ const TermStep = ({ formData, setFormData }) => {
             <input className="peer hidden" name="term" type="radio" value={term.id} checked={formData.term === term.id} onChange={setTerm} />
             <div className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex flex-col items-center border-2 border-transparent peer-checked:border-indigo-500">
               {termIcons.get(term.name.split(' ')[0])}
-              <div>{term.name}</div>
+              <div className="font-semibold">{term.name}</div>
             </div>
           </label>
         ))}

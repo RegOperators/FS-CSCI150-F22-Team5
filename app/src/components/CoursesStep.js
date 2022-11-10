@@ -60,7 +60,7 @@ const CoursesStep = ({ formData, setFormData }) => {
               <motion.li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={course.CRSE_ID} layout initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
                 <div>
                   <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
-                  <div>{course.CRSE_TITLE}</div>
+                  <div className="text-gray-500 dark:text-gray-400 font-medium">{course.CRSE_TITLE}</div>
                 </div>
                 <button onClick={() => removeCourse(index)}>Remove</button>
               </motion.li>
@@ -97,7 +97,7 @@ const CoursesStep = ({ formData, setFormData }) => {
                   <li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
                     <div>
                       <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
-                      <div>{course.CRSE_TITLE}</div>
+                      <div className="text-gray-500 dark:text-gray-400 font-medium">{course.CRSE_TITLE}</div>
                     </div>
                     <button onClick={() => addCourse(course)}>Add</button>
                   </li>
