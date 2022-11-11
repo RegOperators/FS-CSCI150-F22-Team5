@@ -24,8 +24,8 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 2 of 3</div>
-      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">Are you unavailable at any point during the week?</h1>
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 3 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-10">Are you unavailable at any point during the week?</h1>
       <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
         <h2 className="text-lg font-semibold">Busy Periods</h2>
         <button onClick={() => setIsModalOpen(true)}>

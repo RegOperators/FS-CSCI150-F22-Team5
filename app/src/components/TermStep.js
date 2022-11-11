@@ -58,15 +58,15 @@ const TermStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 1 of 3</div>
-      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">What term would you like to generate schedules for?</h1>
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 1 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-10">What term would you like to generate schedules for?</h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {terms.map((term, index) => (
           <label key={index}>
             <input className="peer hidden" name="term" type="radio" value={term.id} checked={formData.term === term.id} onChange={setTerm} />
             <div className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex flex-col items-center border-2 border-transparent peer-checked:border-indigo-500">
               {termIcons.get(term.name.split(' ')[0])}
-              <div className="font-semibold">{term.name}</div>
+              <div className="text-lg font-semibold">{term.name}</div>
             </div>
           </label>
         ))}

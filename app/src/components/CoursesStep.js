@@ -42,8 +42,8 @@ const CoursesStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 1 of 3</div>
-      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">What courses are you interested in taking?</h1>
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 2 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-10">What courses are you interested in taking?</h1>
       <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
         <h2 className="text-lg font-semibold">Courses</h2>
         <button onClick={() => setIsModalOpen(true)}>
