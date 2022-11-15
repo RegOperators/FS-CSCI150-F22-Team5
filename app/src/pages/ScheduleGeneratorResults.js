@@ -78,13 +78,13 @@ const ScheduleGeneratorResults = () => {
       ) : (
         <>
           {!error ? (
-            <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 2xl:py-48">
+            <div className="px-6 sm:px-12 py-48 sm:py-56 2xl:py-72">
               <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-bold mb-8">{schedules.length} Possible Schedules</h1>
               {schedules.length > 0 ? (
                 <ul>
                   {schedules.map((schedule, index) => (
-                    <li className="grid grid-cols-1 sm:grid-cols-10 gap-16 mb-8 last:mb-0" key={index}>
-                      <div className="sm:col-span-4 sm:sticky sm:top-16 sm:h-min">
+                    <li className="grid grid-cols-1 sm:grid-cols-10 gap-16 mb-16 last:mb-0" key={index}>
+                      <div className="sm:col-span-4 sm:sticky sm:top-32 sm:h-min">
                         <h2 className="text-xl font-semibold mb-8">{index + 1}</h2>
                         <ul>
                           {schedule.map((section, index) => (
@@ -97,11 +97,11 @@ const ScheduleGeneratorResults = () => {
                       </div>
                       <div className="sm:col-span-6 grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto" style={{ gridTemplateRows: `auto repeat(${endTime - startTime}, 1fr)` }}>
                         <div className="bg-white dark:bg-[#0d1117] sticky left-0 z-10" style={{ gridArea: '1 / 1 / 2 / 2' }}></div>
-                        <div className="text-center pb-4" style={{ gridArea: '1 / 2 / 2 / 3' }}>Mo</div>
-                        <div className="text-center pb-4" style={{ gridArea: '1 / 3 / 2 / 4' }}>Tu</div>
-                        <div className="text-center pb-4" style={{ gridArea: '1 / 4 / 2 / 5' }}>We</div>
-                        <div className="text-center pb-4" style={{ gridArea: '1 / 5 / 2 / 6' }}>Th</div>
-                        <div className="text-center pb-4" style={{ gridArea: '1 / 6 / 2 / 7' }}>Fr</div>
+                        <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 2 / 2 / 3' }}>Mo</div>
+                        <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 3 / 2 / 4' }}>Tu</div>
+                        <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 4 / 2 / 5' }}>We</div>
+                        <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 5 / 2 / 6' }}>Th</div>
+                        <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 6 / 2 / 7' }}>Fr</div>
                         {Array.from({ length: endTime - startTime }, (v, i) => militaryToRegularTime(`${(startTime + i).toString().padStart(2, '0')}:00`)).map((time, index) => (
                           <div className="bg-white dark:bg-[#0d1117] sticky left-0 z-10 min-h-[8rem] pr-4" style={{ gridArea: `${index + 2} / 1 / ${index + 3} / 2` }} key={index}>
                             <div className="text-xs -translate-y-1/2">{time}</div>

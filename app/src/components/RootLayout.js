@@ -58,12 +58,12 @@ function RootLayout() {
   
   return (
     <div className="dark:bg-[#0d1117] dark:text-white font-['Manrope'] overflow-x-clip">
-      <header className="flex justify-between items-center px-6 sm:px-12 py-6 sm:py-8 absolute w-full">
+      <header className="flex justify-between items-center px-6 sm:px-12 py-6 sm:py-8 fixed w-full z-20">
         <h1 className="text-xl sm:text-2xl font-semibold">RegOp</h1>
         <button onClick={switchTheme}>{options[optionIndex].component}</button>
       </header>
       <AnimatePresence initial={false} mode="wait">
-        <motion.div className="min-h-screen pt-24" key={location.pathname} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>
+        <motion.div className="min-h-screen" key={location.pathname} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>
           <LocationContext.Provider value={{ location: location }}>{useOutlet()}</LocationContext.Provider>
         </motion.div>
       </AnimatePresence>
