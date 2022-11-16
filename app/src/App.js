@@ -26,9 +26,9 @@ function App() {
   const [error, setError] = useState(null)
   var potentialScheduleRes //Data used in Front end manipulation of potential schedules
   const fetchSchedules = () => {
-    fetch('localhost:4000/?' + new URLSearchParams(courses.map((course) => ['classes', course.courseId])).toString())
-      //localhost:4000/?
-      //http://35.92.207.28:8080/?
+    fetch('http://localhost:4000/?' + new URLSearchParams(courses.map((course) => ['classes', course.courseId])).toString())
+      //http://localhost:4000?  test on local machine
+      //http://35.92.207.28:8080/? If you want to run on AWS
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
