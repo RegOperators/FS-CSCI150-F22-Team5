@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import LoadingSpinner from './LoadingSpinner'
 
 const TermStep = ({ formData, setFormData }) => {
   const [terms, setTerms] = useState([])
@@ -74,7 +75,9 @@ const TermStep = ({ formData, setFormData }) => {
       <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 1 of 3</div>
       <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-bold mb-10">What term would you like to generate schedules for?</h1>
       {loading ? (
-        <div>Loading...</div>
+        <div className="flex justify-center">
+          <LoadingSpinner />
+        </div>
       ) : (
         <>
           {!error ? (

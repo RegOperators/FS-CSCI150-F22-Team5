@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react'
 import { useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const ScheduleGeneratorResults = () => {
   const location = useLocation()
@@ -68,11 +68,7 @@ const ScheduleGeneratorResults = () => {
     <>
       {loading ? (
         <div className="absolute inset-0 flex flex-col justify-center items-center">
-          <motion.div className="flex mb-8" variants={{ start: { transition: { staggerChildren: 0.2 } }, end: { transition: { staggerChildren: 0.2 } } }} initial="start" animate="end">
-            <motion.div className="bg-black dark:bg-white w-4 h-4 rounded-full mr-4" variants={{ start: { y: '0%' }, end: { y: '100%' } }} transition={{ duration: 0.4, repeat: Infinity, repeatType: 'reverse' }} />
-            <motion.div className="bg-black dark:bg-white w-4 h-4 rounded-full mr-4" variants={{ start: { y: '0%' }, end: { y: '100%' } }} transition={{ duration: 0.4, repeat: Infinity, repeatType: 'reverse' }} />
-            <motion.div className="bg-black dark:bg-white w-4 h-4 rounded-full" variants={{ start: { y: '0%' }, end: { y: '100%' } }} transition={{ duration: 0.4, repeat: Infinity, repeatType: 'reverse' }} />
-          </motion.div>
+          <LoadingSpinner className="mb-4" />
           <div className="text-lg font-semibold">Generating Schedules</div>
         </div>
       ) : (
