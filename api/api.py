@@ -45,6 +45,7 @@ def get_course_info():  # convert course info xml to json obj indexed by courseI
 def get_valid_schedules():
     response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
     soup = BeautifulSoup(response.text, 'html5lib')
+    
     userid = soup.find('input', {'name': 'userid'}).get('value')
     pwd = soup.find('input', {'name': 'pwd'}).get('value')
     cmd = soup.find('input', {'name': 'cmd'}).get('value')
@@ -98,10 +99,12 @@ def get_valid_schedules():
                 cookies=cookies, data=data)
             soup = BeautifulSoup(response.text, 'html5lib')
 
-        errorText = soup.find(id='DERIVED_CLSMSG_ERROR_TEXT')
+        errorText = soup.find(id='DERIVED_CLSMSG_ERROR_TEXT') #if class doesn't exist increment the variable
+        errorNum = 0                                           #variable has to be set for the site to work
         if errorText:
             icStateNum += 1
             continue
+        
 
         # classTable = soup.find(id='win0divSSR_CLSRSLT_WRK_GROUPBOX2$0')
         # className = classTable.find(id='win0divSSR_CLSRSLT_WRK_GROUPBOX2GP$0').text
