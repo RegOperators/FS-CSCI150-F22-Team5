@@ -1,6 +1,6 @@
 # Overall Description
 ## 2.1 Product Perspective
-The Operation Registration website is being built to be used as a supplement to the alrleady existing course registration system provided by Fresno State through the My Fresno State portal. The website itself will rely heavily upon currently available information that is hosted by Fresno State, as one of the website's primary funcitons will be to pull and cohesively present relevant course information that is hosted by Fresno State in a variety of different locations.
+The Operation Registration website is being built to be used as a supplement to the alrleady existing course registration system provided by Fresno State through the My Fresno State portal. The website itself will rely heavily upon currently available information that is hosted by Fresno State, as one of the website's primary functions will be to pull and cohesively present relevant course information that is hosted by Fresno State in a variety of different locations.
 
 ## 2.2 Product Functions
 The user will supply the website with a short list of courses they which to register for in the upcoming semester, and the website will fetch information on these courses, calculate viable potential schedules for the given list of courses, and display these schedules to the user.
