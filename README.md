@@ -22,9 +22,7 @@ It will be assumed that Fresno State will host pertinent information in the same
 
 # External Interface Requirements
 ## 3.1 User Interfaces
-![[Pasted image 20221001195132.png]]
-
-The user will input the courses they wish to schedule in the interface shown above. After submitting all of their desired courses, they will click "generate schedule" and be shown all of the schedules that are possible with their given input. 
+The user will input the courses they wish to schedule in the website interface. After submitting all of their desired courses, they will click "generate schedule" and be shown all of the schedules that are possible with their given input. 
 
 ## 3.2 Hardware Interfaces
 The software wil interface with any device that can run a web browser and can conect to the internet. In particular, desktop computers and laptops are the main target in terms of hardware but mobile devices such as phones and tablets should be able to interface with the software as well.
