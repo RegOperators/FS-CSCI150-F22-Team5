@@ -2,7 +2,7 @@
 A website to make signing up for classes easy.
 
 ## Overall Description
----
+
 ### 2.1 Product Perspective
 The Operation Registration website is being built to be used as a supplement to the alrleady existing course registration system provided by Fresno State through the My Fresno State portal. The website itself will rely heavily upon currently available information that is hosted by Fresno State, as one of the website's primary funcitons will be to pull and cohesively present relevant course information that is hosted by Fresno State in a variety of different locations.
 
