@@ -55,14 +55,15 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 2 of 3</div>
-      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">Are you unavailable at any point during the week?</h1>
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 3 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-bold mb-10">Are you unavailable at any point during the week?</h1>
       <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
         <h2 className="text-lg font-semibold">Busy Periods</h2>
         <button onClick={() => setIsModalOpen(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
-            <title>Add</title>
-            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M256 112v288M400 256H112"/>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <line x1={12} y1={5} x2={12} y2={19}></line>
+            <line x1={5} y1={12} x2={19} y2={12}></line>
           </svg>
         </button>
       </div>
@@ -88,9 +89,10 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
             <div className="flex justify-between items-center p-6 sm:p-8">
               <h1 className="text-xl font-semibold">Add a Busy Period</h1>
               <button onClick={() => setIsModalOpen(false)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
-                  <title>Close</title>
-                  <path d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <line x1={18} y1={6} x2={6} y2={18}></line>
+                  <line x1={6} y1={6} x2={18} y2={18}></line>
                 </svg>
               </button>
             </div>

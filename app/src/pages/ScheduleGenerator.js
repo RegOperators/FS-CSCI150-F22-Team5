@@ -40,26 +40,31 @@ function ScheduleGenerator() {
   
   return (
     <div>
-      <div className="container mx-auto px-6 sm:px-12 py-24 sm:py-32 2xl:py-48 grid grid-cols-1 sm:grid-cols-10 gap-16">
-        <div className="hidden sm:block col-span-3 sticky top-32 h-min">
-          <ol>
-            {steps.map((step, index) => (
-              <li className={`flex items-center mb-16 last:mb-0 ${index !== currentStepIndex ? 'text-gray-500 dark:text-gray-400' : ''}`} onClick={() => setCurrentStepIndex(index)} key={index}><div className="bg-gray-100 dark:bg-[#161b22] w-8 h-8 rounded-md flex justify-center items-center mr-4">{index + 1}</div>{step.name}</li>
-            ))}
-          </ol>
-        </div>
-        <AnimatePresence initial={false} mode="wait">
-          <motion.div className="sm:col-span-7" key={currentStepIndex} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>{steps[currentStepIndex].component}</motion.div>
-        </AnimatePresence>
+      <div className="hidden xl:block xl:w-96 2xl:w-[28rem] h-full fixed px-6 sm:px-12 py-48 sm:py-56 2xl:py-72">
+        <ol className="border-l border-gray-200 dark:border-[#30363d]">
+          {steps.map((step, index) => (
+            <li className={`px-8 py-1 mb-12 last:mb-0 relative ${index === currentStepIndex ? 'text-indigo-500 font-semibold' : 'text-gray-500 dark:text-gray-400'}`} onClick={() => setCurrentStepIndex(index)} key={index}>
+              {index === currentStepIndex && (
+                <motion.div className="w-[3px] h-full bg-current rounded-md absolute -left-0.5 top-0" layoutId="stepMarker"></motion.div>
+              )}
+              {step.name}
+            </li>
+          ))}
+        </ol>
       </div>
-      <div className="fixed bottom-0 w-full z-10 bg-white dark:bg-[#0d1117] py-6">
-        <div className="container mx-auto px-6 sm:px-12 flex justify-end">
-          <button className="bg-gray-100 hover:bg-gray-200 dark:bg-[#161b22] dark:hover:bg-[#21262d] font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto disabled:opacity-50 disabled:pointer-events-none mr-4" onClick={goBack} disabled={currentStepIndex === 0}>Back</button>
-          {currentStepIndex !== steps.length - 1 ? (
-            <button className="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={goForward}>Continue</button>
-          ) : (
-            <button className="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={submit}>Generate</button>
-          )}
+      <div className="xl:ml-96 2xl:ml-[28rem]">
+        <AnimatePresence initial={false} mode="wait">
+          <motion.div className="max-w-5xl px-6 sm:px-12 py-48 sm:py-56 2xl:py-72 min-h-screen" key={currentStepIndex} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>{steps[currentStepIndex].component}</motion.div>
+        </AnimatePresence>
+        <div className="sticky bottom-0 bg-white dark:bg-[#0d1117] py-6">
+          <div className="max-w-5xl px-6 sm:px-12 flex justify-end">
+            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-[#161b22] dark:hover:bg-[#21262d] font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto disabled:opacity-50 disabled:pointer-events-none mr-4" onClick={goBack} disabled={currentStepIndex === 0}>Back</button>
+            {currentStepIndex !== steps.length - 1 ? (
+              <button className="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={goForward}>Continue</button>
+            ) : (
+              <button className="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold px-4 py-2.5 rounded-md w-full sm:w-auto" onClick={submit}>Generate</button>
+            )}
+          </div>
         </div>
       </div>
     </div>
