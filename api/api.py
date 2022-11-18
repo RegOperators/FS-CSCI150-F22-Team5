@@ -4,7 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import datetime
-import lxml
 import json
 
 app = Flask(__name__)
@@ -40,8 +39,44 @@ def get_course_info():  # convert course info xml to json obj indexed by courseI
     # Return final json
     return json_object
 
+@app.route("/terms")
+def get_terms():  # get course terms
+    # Get course search page html
+    response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    userid = soup.find('input', {'name': 'userid'}).get('value')
+    pwd = soup.find('input', {'name': 'pwd'}).get('value')
+    cmd = soup.find('input', {'name': 'cmd'}).get('value')
+    languageCd = soup.find('input', {'name': 'languageCd'}).get('value')
+    fr_guest_token = soup.find('input', {'name': 'fr_guest_token'}).get('value')
+    session = requests.Session()
+    data = {
+        'userid': userid,
+        'pwd': pwd,
+        'cmd': cmd,
+        'languageCd': languageCd,
+        'fr_guest_token': fr_guest_token,
+    }
+    response = session.post(
+        'https://cmsweb.fresnostate.edu/psc/CFRPRD/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.CLASS_SEARCH.GBL', data=data)
 
-@app.route('/')
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # create empty list to hold terms
+    terms = []
+
+    options = soup.find("select", {"id": "CLASS_SRCH_WRK2_STRM$35$"})  # find tag with term options
+    children = options.findChildren()  # create list of children (options with terms)
+
+    # Step through each option, skipping the first (since it's empty)
+    for child in children[1:]:
+        id = child['value']  # save term id
+        name = child.contents[0]  # save term name
+        terms.append({'id': id, 'name': name})  #
+
+    return terms
+
+@app.route('/', methods=['POST'])
 def get_valid_schedules():
     response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
     soup = BeautifulSoup(response.text, 'html5lib')
@@ -64,7 +99,7 @@ def get_valid_schedules():
     sessionId = session.cookies['CFRPRD-PSJSESSIONID']
     icStateNum = 1
     classes = []
-    for className in request.args.getlist('classes'):
+    for courseName in request.json['courses']:
         cookies = {
             'CFRPRD-PSJSESSIONID': sessionId,
         }
@@ -72,10 +107,10 @@ def get_valid_schedules():
         data = {
             'ICStateNum': icStateNum,
             'ICAction': 'CLASS_SRCH_WRK2_SSR_PB_CLASS_SRCH',
-            # 'CLASS_SRCH_WRK2_STRM$35$': '2227',
-            'SSR_CLSRCH_WRK_SUBJECT$0': className.split()[0],
+            'CLASS_SRCH_WRK2_STRM$35$': request.json['term'],
+            'SSR_CLSRCH_WRK_SUBJECT$0': courseName.split()[0],
             'SSR_CLSRCH_WRK_SSR_EXACT_MATCH1$1': 'E',
-            'SSR_CLSRCH_WRK_CATALOG_NBR$1': className.split()[1],
+            'SSR_CLSRCH_WRK_CATALOG_NBR$1': courseName.split()[1],
             # 'SSR_CLSRCH_WRK_SSR_OPEN_ONLY$chk$4': 'N',
         }
 
@@ -142,7 +177,7 @@ def get_valid_schedules():
                        'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(),
                        'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(),
                        'room': classRoom, 'instructor': classInstructor.splitlines()[0], 'courseId': courseId,
-                       'courseName': className}
+                       'courseName': courseName}
             if sectionGroups.get(sectionTypeId) is None:
                 sectionGroups[sectionTypeId] = [section]
             else:
