@@ -40,7 +40,7 @@ function ScheduleGenerator() {
   
   return (
     <div>
-      <div className="hidden xl:block xl:w-96 2xl:w-[28rem] h-full fixed px-6 sm:px-12 py-48 sm:py-56 2xl:py-72">
+      <div className="hidden xl:block xl:w-96 2xl:w-[28rem] h-full fixed px-6 sm:px-12 py-48 sm:py-56 2xl:py-64">
         <ol className="border-l border-gray-200 dark:border-[#30363d]">
           {steps.map((step, index) => (
             <li className={`px-8 py-1 mb-12 last:mb-0 relative ${index === currentStepIndex ? 'text-indigo-500 font-semibold' : 'text-gray-500 dark:text-gray-400'}`} onClick={() => setCurrentStepIndex(index)} key={index}>
@@ -54,7 +54,7 @@ function ScheduleGenerator() {
       </div>
       <div className="xl:ml-96 2xl:ml-[28rem]">
         <AnimatePresence initial={false} mode="wait">
-          <motion.div className="max-w-5xl px-6 sm:px-12 py-48 sm:py-56 2xl:py-72 min-h-screen" key={currentStepIndex} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>{steps[currentStepIndex].component}</motion.div>
+          <motion.div className="max-w-5xl px-6 sm:px-12 py-48 sm:py-56 2xl:py-64 min-h-screen" key={currentStepIndex} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ type: 'tween' }}>{steps[currentStepIndex].component}</motion.div>
         </AnimatePresence>
         <div className="sticky bottom-0 bg-white dark:bg-[#0d1117] py-6">
           <div className="max-w-5xl px-6 sm:px-12 flex justify-end">
