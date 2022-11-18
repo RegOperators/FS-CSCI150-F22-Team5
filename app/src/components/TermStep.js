@@ -7,7 +7,7 @@ const TermStep = ({ formData, setFormData }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('http://localhost:4000/terms')
+    fetch(`${process.env.REACT_APP_API_URL}/terms`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
