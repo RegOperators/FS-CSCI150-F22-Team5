@@ -11,7 +11,7 @@ const ScheduleGeneratorResults = () => {
   const [error, setError] = useState(null)
   
   useEffect(() => {
-    fetch('http://localhost:4000', {
+    fetch(process.env.REACT_APP_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('http://localhost:4000/courses')
+    fetch(`${process.env.REACT_APP_API_URL}/courses`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
