@@ -74,7 +74,7 @@ const ScheduleGeneratorResults = () => {
       ) : (
         <>
           {!error ? (
-            <div className="px-6 sm:px-12 py-48 sm:py-56 2xl:py-72">
+            <div className="px-6 sm:px-12 py-48 sm:py-56 2xl:py-64">
               <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-bold mb-8">{schedules.length} Possible Schedules</h1>
               {schedules.length > 0 ? (
                 <ul>
