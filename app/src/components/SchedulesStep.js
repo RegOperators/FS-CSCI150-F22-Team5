@@ -7,7 +7,7 @@ const SchedulesStep = ({ formData, setFormData }) => {
   const [error, setError] = useState(null)
   
   useEffect(() => {
-    fetch('http://35.92.207.28:8080/?' + new URLSearchParams(formData.courses.map((course) => ['classes', `${course.SUBJECT_ID} ${course.CATALOG_NBR}`])).toString())
+    fetch('http://localhost:4000?' + new URLSearchParams(formData.courses.map((course) => ['classes', `${course.SUBJECT_ID} ${course.CATALOG_NBR}`])).toString())
     //http://localhost:4000?  test on local machine
       //http://35.92.207.28:8080/? If you want to run on AWS
     .then((response) => {

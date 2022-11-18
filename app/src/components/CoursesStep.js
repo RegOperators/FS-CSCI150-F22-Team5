@@ -10,7 +10,7 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('http://35.92.207.28:8080/courses')
+    fetch('http://localhost:4000/courses')
     //http://localhost:4000?  test on local machine
       //http://35.92.207.28:8080/? If you want to run on AWS
     .then((response) => {
