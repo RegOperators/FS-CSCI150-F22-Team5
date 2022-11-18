@@ -4,7 +4,7 @@ import Modal from './Modal'
 const BusyPeriodsStep = ({ formData, setFormData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   
-  const [newBusyPeriod, setNewBusyPeriod] = useState({ name: '', startTime: '', endTime: '' })
+  const [newBusyPeriod, setNewBusyPeriod] = useState({ name: '', startTime: '', endTime: '', days:[false, false, false, false, false]})
   
   const updateNewBusyPeriod = (event) => {
     const newNewBusyPeriod = {...newBusyPeriod}
@@ -14,6 +14,8 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
   
   const addNewBusyPeriod = () => {
     setFormData({...formData, busyPeriods: [...formData.busyPeriods, newBusyPeriod]})
+    setIsModalOpen(false)
+    setNewBusyPeriod({ name: '', startTime: '', endTime: '', days:[false, false, false, false, false]})
   }
   
   const removeBusyPeriod = (index) => {
@@ -21,6 +23,35 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
     newBusyPeriods.splice(index, 1)
     setFormData({...formData, busyPeriods: newBusyPeriods})
   }
+  const updateDays = (event) => {
+    let index = parseFloat(event.target.name)
+    
+    const newNewBusyPeriod = {...newBusyPeriod}
+    let arr = newNewBusyPeriod["days"]
+    arr[index] = event.target.checked
+    newNewBusyPeriod["days"] = arr
+    setNewBusyPeriod(newNewBusyPeriod)
+    //console.log(newNewBusyPeriod)
+  }
+  const militaryToRegularTime = (time) => {
+    return new Date(`1970-01-01T${time}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })
+  }
+  const getDaysBusy = (arr) => {
+    var res = ""
+    if(arr[0])
+      res += "M "
+    if(arr[1])
+      res += "Tu "
+    if(arr[2])
+      res += "W "
+    if(arr[3])
+      res += "Th "
+    if(arr[4])
+      res += "F "
+    
+    return res
+  }
+
   
   return (
     <div>
@@ -41,7 +72,8 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
             <li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
               <div>
                 <div className="text-lg font-semibold">{busyPeriod.name}</div>
-                <div>{busyPeriod.startTime} - {busyPeriod.endTime}</div>
+                <div>{militaryToRegularTime(busyPeriod.startTime)} - {militaryToRegularTime(busyPeriod.endTime)}</div>
+                <div>{getDaysBusy(busyPeriod.days)}</div>
               </div>
               <button onClick={() => removeBusyPeriod(index)}>Remove</button>
             </li>
@@ -79,10 +111,16 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
                 <div>
                   <label>Days</label>
                   <div>
-                    <div>
-                      <input className="" type="checkbox" />
-                      <label>M</label>
-                    </div>
+                    <input className="" type="checkbox" name="0" onChange={(event) => updateDays(event)}/>
+                    M<br/>
+                    <input className="" type="checkbox" name ="1" onChange={(event) => updateDays(event)}/>
+                    <label>T</label><br/>
+                    <input className="" type="checkbox" name="2" onChange={(event) => updateDays(event)}/>
+                    <label>W</label><br/>
+                    <input className="" type="checkbox" name="3" onChange={(event) => updateDays(event)}/>
+                    <label>Th</label><br/>
+                    <input className="" type="checkbox" name="4" onChange={(event) => updateDays(event)}/>
+                    <label>F</label>
                   </div>
                 </div>
               </div>
