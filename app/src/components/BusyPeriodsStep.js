@@ -60,7 +60,7 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
       <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
         <h2 className="text-lg font-semibold">Busy Periods</h2>
         <button onClick={() => setIsModalOpen(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <line x1={12} y1={5} x2={12} y2={19}></line>
             <line x1={5} y1={12} x2={19} y2={12}></line>
@@ -89,7 +89,7 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
             <div className="flex justify-between items-center p-6 sm:p-8">
               <h1 className="text-xl font-semibold">Add a Busy Period</h1>
               <button onClick={() => setIsModalOpen(false)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                   <line x1={18} y1={6} x2={6} y2={18}></line>
                   <line x1={6} y1={6} x2={18} y2={18}></line>

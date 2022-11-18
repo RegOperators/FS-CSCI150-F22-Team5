@@ -30,7 +30,7 @@ const TermStep = ({ formData, setFormData }) => {
   }
   
   const fallIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M5 21c.5 -4.5 2.5 -8 7 -10"></path>
       <path d="M9 18c6.218 0 10.5 -3.288 11 -12v-2h-4.014c-9 0 -11.986 4 -12 9c0 1 0 3 2 5h3z"></path>
@@ -38,7 +38,7 @@ const TermStep = ({ formData, setFormData }) => {
   )
   
   const winterIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M10 4l2 1l2 -1"></path>
       <path d="M12 2v6.5l3 1.72"></path>
@@ -56,7 +56,7 @@ const TermStep = ({ formData, setFormData }) => {
   )
   
   const springIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" width={24} height={24} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M12 10a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3"></path>
       <path d="M12 14a6 6 0 0 1 6 -6h3v1a6 6 0 0 1 -6 6h-3"></path>
