@@ -111,7 +111,7 @@ def get_valid_schedules():
             'SSR_CLSRCH_WRK_SUBJECT$0': courseName.split()[0],
             'SSR_CLSRCH_WRK_SSR_EXACT_MATCH1$1': 'E',
             'SSR_CLSRCH_WRK_CATALOG_NBR$1': courseName.split()[1],
-            # 'SSR_CLSRCH_WRK_SSR_OPEN_ONLY$chk$4': 'N',
+            'SSR_CLSRCH_WRK_SSR_OPEN_ONLY$chk$4': 'N',
         }
 
         response = requests.post(
