@@ -9,7 +9,8 @@ function ScheduleGenerator() {
   const [formData, setFormData] = useState({
     term: '',
     courses: [],
-    busyPeriods: []
+    busyPeriods: [],
+    saved: []
   })
 
   const steps = [

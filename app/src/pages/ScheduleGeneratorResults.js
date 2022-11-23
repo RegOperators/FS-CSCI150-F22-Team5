@@ -66,6 +66,13 @@ const ScheduleGeneratorResults = () => {
   const endTime = 19
 
   //////////////////////////////
+
+  //Handles
+
+  //Functions that deal with the filtering of busy periods
+
+  //Precondition: A list of javascript objects that are fomatted in the json format established in the courses array
+  //Postcondition: A list of javascript objects in same format that is filtered of those conflicting with our busyperiods array.
   const filterBusy = (potential) =>{
     console.log(formData.busyPeriods);
     let res = [];
@@ -77,11 +84,13 @@ const ScheduleGeneratorResults = () => {
     //return res
   }
 
+  //Precondition: Singular item in courses array (represents one weekly schedule)
+  //Postcondition: Returns boolean that equals if there are no conflicts with busy period
   const filterHelp = (potential) =>{
    
     for(let j = 0; j < potential.length; j++) // for each class in week
       for(let i = 0; i < formData.busyPeriods.length; i++){ //for each busy period
-        var why = intersectHelp(formData.busyPeriods[i].startTime, formData.busyPeriods[i].endTime, potential[j])
+        var why = intersectHelp(formData.busyPeriods[i].startTime, formData.busyPeriods[i].endTime, potential[j]) //Test code
         if(formData.busyPeriods[i].days[0] && potential[j].days.includes("Mo") && intersectHelp(formData.busyPeriods[i].startTime, formData.busyPeriods[i].endTime, potential[j]))
           return false;
         if(formData.busyPeriods[i].days[1] && potential[j].days.includes("Tu") && intersectHelp(formData.busyPeriods[i].startTime, formData.busyPeriods[i].endTime, potential[j]))
@@ -97,19 +106,19 @@ const ScheduleGeneratorResults = () => {
     return true;
   }
 
+  //Precondition: start and end being in military time, potential being a singular class in schedule from courses list
+  //Postcondition: A boolean that equals true if there is conflict between a class and a busy period
   const intersectHelp = (start, end, potential) =>{ //returns true if classes intersect with busy periods
     var arr = start.split(":")
     var a = parseFloat(arr[0]) + (parseFloat(arr[1]) / 60)
     var arr2 = end.split(":")
     var b = parseFloat(arr2[0]) + (parseFloat(arr2[1]) / 60)
-   // for(let i = 0; i < potential.length; i++){ // Get each class in week
       var arr3 = potential.startTime.split(":")
       var c = parseFloat(arr3[0]) + (parseFloat(arr3[1]) / 60)
       var arr4 = potential.endTime.split(":")
       var d = parseFloat(arr4[0]) + (parseFloat(arr4[1]) / 60)
       if(b > c && a < d)
         return true
-   // }
     return false
   }
   /////////////////////////////
