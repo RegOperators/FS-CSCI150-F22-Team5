@@ -76,7 +76,7 @@ def get_terms():  # get course terms
 
     return terms
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST']) #webscrapes from the fresnostate class search website to get the info
 def get_valid_schedules():
     response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
     soup = BeautifulSoup(response.text, 'html5lib')
@@ -135,7 +135,7 @@ def get_valid_schedules():
             soup = BeautifulSoup(response.text, 'html5lib')
 
         errorText = soup.find(id='DERIVED_CLSMSG_ERROR_TEXT') #if class doesn't exist increment the variable
-        errorNum = 0                                           #variable has to be set for the site to work
+                                                                 #variable has to be set for the site to work
         if errorText:
             icStateNum += 1
             continue
