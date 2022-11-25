@@ -172,10 +172,11 @@ def get_valid_schedules():
                 soup = BeautifulSoup(response.text, 'html5lib')
                 courseId = soup.find(id='SSR_CLS_DTL_WRK_CRSE_ID').text
             sectionTypeId = classSection.split('-')[1]
+            classDayTimeSegments = classDayTime.split()
             section = {'id': classNumber, 'number': classSection.split('-')[0], 'type': sectionTypeId,
-                       'days': re.findall('[A-Z][^A-Z]*', classDayTime.split()[0]),
-                       'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(),
-                       'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(),
+                       'days': re.findall('[A-Z][^A-Z]*', classDayTimeSegments[0]) if len(classDayTimeSegments) == 4 else [],
+                       'startTime': datetime.datetime.strptime(classDayTimeSegments[1], '%I:%M%p').time().isoformat() if len(classDayTimeSegments) == 4 else '',
+                       'endTime': datetime.datetime.strptime(classDayTimeSegments[3], '%I:%M%p').time().isoformat() if len(classDayTimeSegments) == 4 else '',
                        'room': classRoom, 'instructor': classInstructor.splitlines()[0], 'courseId': courseId,
                        'courseName': courseName}
             if sectionGroups.get(sectionTypeId) is None:
