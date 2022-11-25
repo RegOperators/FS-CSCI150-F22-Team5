@@ -8,18 +8,18 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
+      element: <Home />
+    },
+    {
+      path: '/schedule-generator/',
       element: <RootLayout />,
       children: [
         {
           path: '',
-          element: <Home />
-        },
-        {
-          path: 'schedule-generator',
           element: <ScheduleGenerator />
         },
         {
-          path: 'schedule-generator/results',
+          path: 'results',
           element: <ScheduleGeneratorResults />
         }
       ]
