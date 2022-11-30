@@ -31,7 +31,8 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [filterString, setFilterString] = useState('')
   
   const addCourse = (course) => {
-    setFormData({...formData, courses: [...formData.courses, course]})
+    if(!formData.courses.includes(course))
+      setFormData({...formData, courses: [...formData.courses, course]})
   }
 
   const removeCourse = (index) => {
