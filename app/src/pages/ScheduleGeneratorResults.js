@@ -196,7 +196,7 @@ const ScheduleGeneratorResults = () => {
                           <Fragment key={sectionGroupIndex}>
                             {value.map((section, index) => (
                               <div className="bg-gray-100 dark:bg-[#161b22] border-l-4 p-1 rounded-md text-center relative m-0.5" style={{ borderColor: calculateColor(formData.courses.findIndex((course) => course.CRSE_ID === section.courseId)), gridArea: `${(parseInt(section.startTime.split(':')[0]) - startTime) + 2} / ${sectionGroupIndex + 2} / ${(parseInt(section.endTime.split(':')[0]) - startTime) + 3} / ${sectionGroupIndex + 3}`, top: `${(((parseInt(section.startTime.split(':')[0]) + (parseInt(section.startTime.split(':')[1]) / 60)) - parseInt(section.startTime.split(':')[0])) / ((parseInt(section.endTime.split(':')[0]) + 1) - parseInt(section.startTime.split(':')[0]))) * 100}%`, height: `${(((parseInt(section.endTime.split(':')[0]) + (parseInt(section.endTime.split(':')[1]) / 60)) - (parseInt(section.startTime.split(':')[0]) + (parseInt(section.startTime.split(':')[1]) / 60))) / ((parseInt(section.endTime.split(':')[0]) + 1) - parseInt(section.startTime.split(':')[0]))) * 100}%` }} key={index}>
-                                <div className="text-sm font-semibold">{section.courseName}</div>
+                                <div className="text-sm font-semibold">{section.courseName} - {section.type}</div>
                                 <div className="text-xs">{militaryToRegularTime(section.startTime)} - {militaryToRegularTime(section.endTime)}</div>
                                 <div className="text-xs">{section.room}</div>
                               </div>
