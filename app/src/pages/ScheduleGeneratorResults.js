@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from 'react'
 import { useLocation } from 'react-router-dom'
 import LoadingSpinner from '../components/LoadingSpinner'
+import './ScheduleGeneratorResults.css'
 
 const ScheduleGeneratorResults = () => {
   const location = useLocation()
@@ -9,6 +10,7 @@ const ScheduleGeneratorResults = () => {
   const [schedules, setSchedules] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  var resultArr
   
   useEffect(() => {
     fetch(process.env.REACT_APP_API_URL, {
@@ -67,8 +69,6 @@ const ScheduleGeneratorResults = () => {
 
   //////////////////////////////
 
-  //Handles
-
   //Functions that deal with the filtering of busy periods
 
   //Precondition: A list of javascript objects that are fomatted in the json format established in the courses array
@@ -80,6 +80,7 @@ const ScheduleGeneratorResults = () => {
       if(filterHelp(potential[j]))
         res.push(potential[j])
     }
+    resultArr = res
     return res
     //return res
   }
@@ -121,6 +122,32 @@ const ScheduleGeneratorResults = () => {
         return true
     return false
   }
+
+   //Functions allowing for saving schedules
+
+   //Precondition: Takes in a valid index from schedules
+   //Postcondition: Generates a list of Saved of Favorited 
+  const toggleSave = (index) =>{
+    var selectDiv = document.getElementById("div"+index)
+    //if it is already in saved list
+    if(selectDiv.getAttribute("class")=="selectedClass sm:col-span-6 grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto"){
+      for(let i = 0; i < formData.saved.length; i++){ //Remove from Saved
+        if(formData.saved[i].key == index)
+          formData.saved.splice(i, 1)
+      }
+      selectDiv.setAttribute("class", "schedulesToSave sm:col-span-6 grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto")
+      selectDiv.setAttribute("title", "Add to Favorites")
+      console.log(formData.saved) //Test Code
+    }else{//if it is not currently saved
+      //console.log(schedules)
+      var x = {key: index, arrData:(schedules[index])}
+      selectDiv.setAttribute("class", "selectedClass sm:col-span-6 grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto")
+      selectDiv.setAttribute("title", "Remove From Favorites")
+      formData.saved.push(x)//Save
+      console.log(formData.saved) //Test Code
+    }
+  }
+
   /////////////////////////////
   
   return (
@@ -150,7 +177,7 @@ const ScheduleGeneratorResults = () => {
                           ))}
                         </ul>
                       </div>
-                      <div className="sm:col-span-6 grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto" style={{ gridTemplateRows: `auto repeat(${endTime - startTime}, 1fr)` }}>
+                      <div title="Add to Favorites" onClick={() => toggleSave(index)} id={"div"+index} className="schedulesToSave sm:col-span-6 grid grid-cols-[auto_repeat(5,_1fr)] overflow-x-auto" style={{ gridTemplateRows: `auto repeat(${endTime - startTime}, 1fr)` }}>
                         <div className="bg-white dark:bg-[#0d1117] sticky left-0 z-10" style={{ gridArea: '1 / 1 / 2 / 2' }}></div>
                         <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 2 / 2 / 3' }}>Mo</div>
                         <div className="font-medium text-center pb-4" style={{ gridArea: '1 / 3 / 2 / 4' }}>Tu</div>
