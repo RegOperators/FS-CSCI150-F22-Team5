@@ -4,7 +4,7 @@ import Modal from './Modal'
 const BusyPeriodsStep = ({ formData, setFormData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   
-  const [newBusyPeriod, setNewBusyPeriod] = useState({ name: '', startTime: '', endTime: '' })
+  const [newBusyPeriod, setNewBusyPeriod] = useState({ name: '', startTime: '', endTime: '', days:[false, false, false, false, false]})
   
   const updateNewBusyPeriod = (event) => {
     const newNewBusyPeriod = {...newBusyPeriod}
@@ -14,6 +14,8 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
   
   const addNewBusyPeriod = () => {
     setFormData({...formData, busyPeriods: [...formData.busyPeriods, newBusyPeriod]})
+    setIsModalOpen(false)
+    setNewBusyPeriod({ name: '', startTime: '', endTime: '', days:[false, false, false, false, false]})
   }
   
   const removeBusyPeriod = (index) => {
@@ -21,17 +23,47 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
     newBusyPeriods.splice(index, 1)
     setFormData({...formData, busyPeriods: newBusyPeriods})
   }
+  const updateDays = (event) => {
+    let index = parseFloat(event.target.name)
+    
+    const newNewBusyPeriod = {...newBusyPeriod}
+    let arr = newNewBusyPeriod["days"]
+    arr[index] = event.target.checked
+    newNewBusyPeriod["days"] = arr
+    setNewBusyPeriod(newNewBusyPeriod)
+    //console.log(newNewBusyPeriod)
+  }
+  const militaryToRegularTime = (time) => {
+    return new Date(`1970-01-01T${time}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })
+  }
+  const getDaysBusy = (arr) => {
+    var res = ""
+    if(arr[0])
+      res += "M "
+    if(arr[1])
+      res += "Tu "
+    if(arr[2])
+      res += "W "
+    if(arr[3])
+      res += "Th "
+    if(arr[4])
+      res += "F "
+    
+    return res
+  }
+
   
   return (
     <div>
-      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 2 of 3</div>
-      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">Are you unavailable at any point during the week?</h1>
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 3 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-bold mb-10">Are you unavailable at any point during the week?</h1>
       <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
         <h2 className="text-lg font-semibold">Busy Periods</h2>
         <button onClick={() => setIsModalOpen(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
-            <title>Add</title>
-            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M256 112v288M400 256H112"/>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <line x1={12} y1={5} x2={12} y2={19}></line>
+            <line x1={5} y1={12} x2={19} y2={12}></line>
           </svg>
         </button>
       </div>
@@ -41,7 +73,8 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
             <li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
               <div>
                 <div className="text-lg font-semibold">{busyPeriod.name}</div>
-                <div>{busyPeriod.startTime} - {busyPeriod.endTime}</div>
+                <div>{militaryToRegularTime(busyPeriod.startTime)} - {militaryToRegularTime(busyPeriod.endTime)}</div>
+                <div>{getDaysBusy(busyPeriod.days)}</div>
               </div>
               <button onClick={() => removeBusyPeriod(index)}>Remove</button>
             </li>
@@ -56,9 +89,10 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
             <div className="flex justify-between items-center p-6 sm:p-8">
               <h1 className="text-xl font-semibold">Add a Busy Period</h1>
               <button onClick={() => setIsModalOpen(false)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
-                  <title>Close</title>
-                  <path d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <line x1={18} y1={6} x2={6} y2={18}></line>
+                  <line x1={6} y1={6} x2={18} y2={18}></line>
                 </svg>
               </button>
             </div>
@@ -79,10 +113,16 @@ const BusyPeriodsStep = ({ formData, setFormData }) => {
                 <div>
                   <label>Days</label>
                   <div>
-                    <div>
-                      <input className="" type="checkbox" />
-                      <label>M</label>
-                    </div>
+                    <input className="" type="checkbox" name="0" onChange={(event) => updateDays(event)}/>
+                    M<br/>
+                    <input className="" type="checkbox" name ="1" onChange={(event) => updateDays(event)}/>
+                    <label>T</label><br/>
+                    <input className="" type="checkbox" name="2" onChange={(event) => updateDays(event)}/>
+                    <label>W</label><br/>
+                    <input className="" type="checkbox" name="3" onChange={(event) => updateDays(event)}/>
+                    <label>Th</label><br/>
+                    <input className="" type="checkbox" name="4" onChange={(event) => updateDays(event)}/>
+                    <label>F</label>
                   </div>
                 </div>
               </div>

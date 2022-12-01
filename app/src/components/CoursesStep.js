@@ -10,7 +10,7 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('http://localhost:4000/courses')
+    fetch(`${process.env.REACT_APP_API_URL}/courses`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not OK')
@@ -31,7 +31,8 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [filterString, setFilterString] = useState('')
   
   const addCourse = (course) => {
-    setFormData({...formData, courses: [...formData.courses, course]})
+    if(!formData.courses.includes(course))
+      setFormData({...formData, courses: [...formData.courses, course]})
   }
 
   const removeCourse = (index) => {
@@ -42,14 +43,15 @@ const CoursesStep = ({ formData, setFormData }) => {
   
   return (
     <div>
-      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-4">Step 1 of 3</div>
-      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-extrabold mb-8">What courses are you interested in taking?</h1>
+      <div className="text-gray-500 dark:text-gray-400 font-semibold mb-6">Step 2 of 3</div>
+      <h1 className="text-3xl xl:text-5xl 2xl:text-6xl font-bold mb-10">What courses are you interested in taking?</h1>
       <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 mb-4">
         <h2 className="text-lg font-semibold">Courses</h2>
         <button onClick={() => setIsModalOpen(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
-            <title>Add</title>
-            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M256 112v288M400 256H112"/>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <line x1={12} y1={5} x2={12} y2={19}></line>
+            <line x1={5} y1={12} x2={19} y2={12}></line>
           </svg>
         </button>
       </div>
@@ -60,7 +62,7 @@ const CoursesStep = ({ formData, setFormData }) => {
               <motion.li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={course.CRSE_ID} layout initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
                 <div>
                   <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
-                  <div>{course.CRSE_TITLE}</div>
+                  <div className="text-gray-500 dark:text-gray-400 font-medium">{course.CRSE_TITLE}</div>
                 </div>
                 <button onClick={() => removeCourse(index)}>Remove</button>
               </motion.li>
@@ -72,21 +74,23 @@ const CoursesStep = ({ formData, setFormData }) => {
       )}
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none">
-          <div className="bg-white dark:bg-[#0d1117] sm:rounded-md w-full sm:w-1/2 h-full sm:h-2/3 flex flex-col pointer-events-auto">
+          <motion.div className="bg-white dark:bg-[#0d1117] sm:rounded-md w-full sm:w-1/2 h-full sm:h-2/3 flex flex-col pointer-events-auto" initial={{ opacity: 0, y: '100%' }} animate={{ opacity: 1, y: '0%' }} exit={{ opacity: 0 }} transition={{ type: 'tween', ease: 'easeOut' }}>
             <div className="p-6 sm:p-8">
               <div className="flex justify-between items-center mb-8">
                 <h1 className="text-xl font-semibold">Add Courses</h1>
                 <button onClick={() => setIsModalOpen(false)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 512 512">
-                    <title>Close</title>
-                    <path d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z"/>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1={18} y1={6} x2={6} y2={18}></line>
+                    <line x1={6} y1={6} x2={18} y2={18}></line>
                   </svg>
                 </button>
               </div>
               <div className="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 absolute top-2.5 left-4" fill="currentColor" viewBox="0 0 512 512">
-                  <title>Search</title>
-                  <path d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0034.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 00327.3 362.6l94.09 94.09a25 25 0 0035.3-35.3zM97.92 222.72a124.8 124.8 0 11124.8 124.8 124.95 124.95 0 01-124.8-124.8z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 absolute top-2.5 left-4" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <circle cx={10} cy={10} r={7}></circle>
+                  <line x1={21} y1={21} x2={15} y2={15}></line>
                 </svg>
                 <input className="bg-gray-100 dark:bg-[#161b22] pl-14 pr-4 py-2.5 rounded-md w-full" value={filterString} onChange={(event) => setFilterString(event.target.value)} />
               </div>
@@ -97,14 +101,14 @@ const CoursesStep = ({ formData, setFormData }) => {
                   <li className="bg-gray-100 dark:bg-[#161b22] p-6 sm:p-8 rounded-md flex justify-between mb-4 last:mb-0" key={index}>
                     <div>
                       <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
-                      <div>{course.CRSE_TITLE}</div>
+                      <div className="text-gray-500 dark:text-gray-400 font-medium">{course.CRSE_TITLE}</div>
                     </div>
                     <button onClick={() => addCourse(course)}>Add</button>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
+          </motion.div>
         </div>
       </Modal>
     </div>

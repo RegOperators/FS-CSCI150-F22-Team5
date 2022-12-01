@@ -76,10 +76,11 @@ def get_terms():  # get course terms
 
     return terms
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST']) #webscrapes from the fresnostate class search website to get the info
 def get_valid_schedules():
     response = requests.get('https://portal.cms.fresnostate.edu/x/_class_search')
     soup = BeautifulSoup(response.text, 'html5lib')
+    
     userid = soup.find('input', {'name': 'userid'}).get('value')
     pwd = soup.find('input', {'name': 'pwd'}).get('value')
     cmd = soup.find('input', {'name': 'cmd'}).get('value')
@@ -110,7 +111,7 @@ def get_valid_schedules():
             'SSR_CLSRCH_WRK_SUBJECT$0': courseName.split()[0],
             'SSR_CLSRCH_WRK_SSR_EXACT_MATCH1$1': 'E',
             'SSR_CLSRCH_WRK_CATALOG_NBR$1': courseName.split()[1],
-            # 'SSR_CLSRCH_WRK_SSR_OPEN_ONLY$chk$4': 'N',
+            'SSR_CLSRCH_WRK_SSR_OPEN_ONLY$chk$4': 'N',
         }
 
         response = requests.post(
@@ -133,10 +134,12 @@ def get_valid_schedules():
                 cookies=cookies, data=data)
             soup = BeautifulSoup(response.text, 'html5lib')
 
-        errorText = soup.find(id='DERIVED_CLSMSG_ERROR_TEXT')
+        errorText = soup.find(id='DERIVED_CLSMSG_ERROR_TEXT') #if class doesn't exist increment the variable
+                                                                 #variable has to be set for the site to work
         if errorText:
             icStateNum += 1
             continue
+        
 
         # classTable = soup.find(id='win0divSSR_CLSRSLT_WRK_GROUPBOX2$0')
         # className = classTable.find(id='win0divSSR_CLSRSLT_WRK_GROUPBOX2GP$0').text
@@ -169,10 +172,11 @@ def get_valid_schedules():
                 soup = BeautifulSoup(response.text, 'html5lib')
                 courseId = soup.find(id='SSR_CLS_DTL_WRK_CRSE_ID').text
             sectionTypeId = classSection.split('-')[1]
+            classDayTimeSegments = classDayTime.split()
             section = {'id': classNumber, 'number': classSection.split('-')[0], 'type': sectionTypeId,
-                       'days': re.findall('[A-Z][^A-Z]*', classDayTime.split()[0]),
-                       'startTime': datetime.datetime.strptime(classDayTime.split()[1], '%I:%M%p').time().isoformat(),
-                       'endTime': datetime.datetime.strptime(classDayTime.split()[3], '%I:%M%p').time().isoformat(),
+                       'days': re.findall('[A-Z][^A-Z]*', classDayTimeSegments[0]) if len(classDayTimeSegments) == 4 else [],
+                       'startTime': datetime.datetime.strptime(classDayTimeSegments[1], '%I:%M%p').time().isoformat() if len(classDayTimeSegments) == 4 else '',
+                       'endTime': datetime.datetime.strptime(classDayTimeSegments[3], '%I:%M%p').time().isoformat() if len(classDayTimeSegments) == 4 else '',
                        'room': classRoom, 'instructor': classInstructor.splitlines()[0], 'courseId': courseId,
                        'courseName': courseName}
             if sectionGroups.get(sectionTypeId) is None:
