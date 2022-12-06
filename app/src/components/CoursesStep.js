@@ -9,6 +9,7 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/courses`)
     .then((response) => {
@@ -31,8 +32,10 @@ const CoursesStep = ({ formData, setFormData }) => {
   const [filterString, setFilterString] = useState('')
   
   const addCourse = (course) => {
-    if(!formData.courses.includes(course))
+    if((document.getElementById(course.CRSE_ID).innerHTML == "Add") && !formData.courses.includes(course)){
       setFormData({...formData, courses: [...formData.courses, course]})
+      document.getElementById(course.CRSE_ID).innerHTML = "Added"
+    }else{document.getElementById(course.CRSE_ID).innerHTML = "Added"}
   }
 
   const removeCourse = (index) => {
@@ -103,7 +106,7 @@ const CoursesStep = ({ formData, setFormData }) => {
                       <div className="text-lg font-semibold">{course.SUBJECT_ID} {course.CATALOG_NBR}</div>
                       <div className="text-gray-500 dark:text-gray-400 font-medium">{course.CRSE_TITLE}</div>
                     </div>
-                    <button onClick={() => addCourse(course)}>Add</button>
+                    <button id ={course.CRSE_ID} onClick={() => addCourse(course)}>Add</button>
                   </li>
                 ))}
               </ul>
