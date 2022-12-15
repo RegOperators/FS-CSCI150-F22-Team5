@@ -1,0 +1,7 @@
+Other Deliverables
+
+Project Dashboard Link: https://github.com/orgs/RegOperators/projects/2
+Video Demo Link: https://youtu.be/D9LoB5BHe1o
+Website Link: https://regop.up.railway.app/
+Github Repo: https://github.com/RegOperators/FS-CSCI150-F22-Team5
+Bonus AWS hosted instance: 35.89.212.42
