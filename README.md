@@ -35,7 +35,7 @@ Operation Registration is a website designed to make signing up for the new seme
 
 ### 2.2 Product Functions
 >Major functions include: term selection, course selection, busy period input, and schedule generation.
-![UI Flow Diagram](/media/UI Flow.png)
+![UI Flow Diagram](/media/UI-Flow.png)
 
 ### 2.3 User Classes and Characteristics
 >The only and most important user class that is anticipated to use this product are Fresno State students who are preparing to register for courses at Fresno State. It will be assumed that they have little technical expertise and will only make use of the website a few times in the weeks before or of their course registration date.
@@ -60,28 +60,28 @@ Operation Registration is a website designed to make signing up for the new seme
 
 ### 3.1 User Interfaces
 > * **Splash Page**
-![Splash Page](/media/Splash Page.png)
+![Splash Page](/media/Splash-Page.png)
 
 
 > * **Term Selection**
-![Term Selection](/media/Term Selection.png)
+![Term Selection](/media/Term-Selection.png)
 
 
 > * **Course Selection**
-![Course Selection-1](/media/Course Selection-1.png)
+![Course Selection-1](/media/Course-Selection-1.png)
 
-![Course Selection-2](/media/Course Selection-2.png)
+![Course Selection-2](/media/Course-Selection-2.png)
 
 
 > * **Busy Period Input**
-![Busy Period Input-1](/media/Busy Period Input-1.png)
+![Busy Period Input-1](/media/Busy-Period-Input-1.png)
 
-![Busy Period Input-2](/media/Busy Period Input-2.png)
+![Busy Period Input-2](/media/Busy-Period-Input-2.png)
 
 >* **Schedule Generation**
-![Schedule Generation-1](/media/Schedule Generation-1.png)
+![Schedule Generation-1](/media/Schedule-Generation-1.png)
 
-![Schedule Generation-2](/media/Schedule Generation-2.png)
+![Schedule Generation-2](/media/Schedule-Generation-2.png)
 
 
 ### 3.2 Hardware Interfaces
