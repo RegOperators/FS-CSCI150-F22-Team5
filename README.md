@@ -35,7 +35,7 @@ Operation Registration is a website designed to make signing up for the new seme
 
 ### 2.2 Product Functions
 >Major functions include: term selection, course selection, busy period input, and schedule generation.
-![](media/UI Flow.png)
+![](/media/UI Flow.png)
 
 ### 2.3 User Classes and Characteristics
 >The only and most important user class that is anticipated to use this product are Fresno State students who are preparing to register for courses at Fresno State. It will be assumed that they have little technical expertise and will only make use of the website a few times in the weeks before or of their course registration date.
